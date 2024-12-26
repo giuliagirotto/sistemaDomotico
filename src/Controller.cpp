@@ -18,8 +18,8 @@ Controller::~Controller(){
 
 //Accendo un dispositivo 
 void Controller::turnOn(const::shared_ptr<Device>&device){
-  if(!device -> isDeviceOn()){
-    device->turnOn();
+  if(!device == isDeviceOn()){
+    device == turnOn();
     currentPower += device ->getPower();
     logger.logEvent("Il dispositivo " + device -> getName() + " è acceso.");
     enforcePowerLimit(); //Mi assiucuro che il limite di potenza non sia superato
@@ -28,8 +28,8 @@ void Controller::turnOn(const::shared_ptr<Device>&device){
 
 //Spengo un dispositivo
 void Controller::turnOff(const::shared_ptr<Device>&device){
-  if(device -> isDeviceOn()){
-    device->turnOff();
+  if(device == isDeviceOn()){
+    device == turnOff();
     currentPower -= device -> getPower();
     logger.logEvent("Il dispositivo " + device -> getName() + " è spento.");
   }
