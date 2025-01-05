@@ -1,131 +1,125 @@
 #include <iostream>
 #include <string>
+#include <unordered_map>
+#include <stdexcept>
 #include "Logger.h"
 #include "Controller.h"
 
-int main(){
 // Funzione per validare un orario nel formato HH:MM
 bool isValidTime(const std::string& time) {
-    if (time.length() != 5 || time[2] != ':') return false;
-    int hours = std::stoi(time.substr(0, 2));
-    int minutes = std::stoi(time.substr(3, 2));
-    return hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60;
+    try {
+        if (time.length() != 5 || time[2] != ':') return false;
+        int hours = std::stoi(time.substr(0, 2));
+        int minutes = std::stoi(time.substr(3, 2));
+        return hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60;
+    } catch (const std::exception&) {
+        return false;
+    }
+}
+
+// Funzione helper per loggare errori
+void logAndPrintError(Logger& logger, const std::string& message) {
+    logger.logEvent(message);
+    std::cout << "Errore: " << message << std::endl;
+}
+
+// Funzione helper per accensione/spegnimento dispositivo
+void handleDeviceAction(const std::string& deviceName, const std::string& action, Logger& logger, Controller& controller) {
+    if (action == "on") {
+        if (controller.turnDeviceOn(deviceName)) {
+            logger.logEvent("Il dispositivo '" + deviceName + "' si è acceso.");
+        } else {
+            throw std::runtime_error("Impossibile accendere il dispositivo: " + deviceName);
+        }
+    } else if (action == "off") {
+        if (controller.turnDeviceOff(deviceName)) {
+            logger.logEvent("Il dispositivo '" + deviceName + "' si è spento.");
+        } else {
+            throw std::runtime_error("Impossibile spegnere il dispositivo: " + deviceName);
+        }
+    } else {
+        throw std::invalid_argument("Azione non valida: " + action);
+    }
 }
 
 void processCommand(const std::string& command, Logger& logger, Controller& controller) {
-    // Mappa dei comandi principali a interi
     static const std::unordered_map<std::string, int> commandMap = {
         {"set", 1},
         {"rm", 2},
         {"show", 3},
-        {"reset", 4},
-        {"exit", 5}
+        {"reset", 4}
     };
 
     size_t spacePos = command.find(' ');
-    std::string mainCommand = command.substr(0, spacePos); // Comando principale
+    std::string mainCommand = command.substr(0, spacePos);
     std::string args = (spacePos != std::string::npos) ? command.substr(spacePos + 1) : "";
 
     auto it = commandMap.find(mainCommand);
     if (it == commandMap.end()) {
-        logger.logEvent("Comando non riconosciuto: " + command);
-        std::cout << "Errore: comando non valido." << std::endl;
+        logAndPrintError(logger, "Comando non riconosciuto: " + command);
         return;
     }
 
-    switch (it->second) {
-        case 1: { // "set"
-           if (args.find("time") == 0) {
-        // Comando "set time HH:MM"
-        std::string time = args.substr(5);
-        if (isValidTime(time)) {
-            controller.setTime(time);
-            logger.logEvent("Orario impostato a: " + time);
-        } else {
-            logger.logEvent("Errore: orario non valido.");
+    try {
+        switch (it->second) {
+            case 1: {
+                // Gestione del comando "set"
+                if (args.starts_with("time ")) {
+                    std::string time = args.substr(5);
+                    if (isValidTime(time)) {
+                        controller.setTime(time);
+                        logger.logEvent("Orario impostato a: " + time);
+                    } else {
+                        throw std::invalid_argument("Orario non valido: " + time);
+                    }
+                } else {
+                    size_t firstSpace = args.find(' ');
+                    std::string deviceName = args.substr(0, firstSpace);
+                    std::string action = args.substr(firstSpace + 1);
+                    handleDeviceAction(deviceName, action, logger, controller);
+                }
+                break;
+            }
+            case 2: {
+                if (controller.removeTimer(args)) {
+                    logger.logEvent("Rimosso il timer dal dispositivo '" + args + "'.");
+                } else {
+                    throw std::runtime_error("Impossibile rimuovere il timer per il dispositivo: " + args);
+                }
+                break;
+            }
+            case 3: {
+                if (args.empty()) {
+                    logger.logEvent("Mostrati tutti i consumi.");
+                    controller.showAllDevices();
+                } else {
+                    logger.logEvent("Mostrato consumo per dispositivo: " + args);
+                    controller.showDevice(args);
+                }
+                break;
+            }
+            case 4: {
+                if (args == "time") {
+                    controller.resetTime();
+                    logger.logEvent("Orario resettato.");
+                } else if (args == "timers") {
+                    controller.resetTimers();
+                    logger.logEvent("Timers resettati.");
+                } else if (args == "all") {
+                    controller.resetAll();
+                    logger.logEvent("Sistema resettato alle condizioni iniziali.");
+                } else {
+                    throw std::invalid_argument("Argomento non valido per il reset: " + args);
+                }
+                break;
+            }
+            default:
+                throw std::logic_error("Comando non gestito correttamente.");
         }
-    } else {
-        // Comandi "set DEVICE_NAME on/off" o "set DEVICE_NAME HH:MM [HH:MM]"
-        size_t firstSpace = args.find(' ');
-        std::string deviceName = args.substr(0, firstSpace);
-        std::string action = args.substr(firstSpace + 1);
-
-        if (action == "on") {
-            // Accensione dispositivo
-            if (controller.turnDeviceOn(deviceName)) {
-                logger.logEvent("Il dispositivo '" + deviceName + "' si è acceso.");
-            } else {
-                logger.logEvent("Errore: dispositivo '" + deviceName + "' non trovato.");
-            }
-        } else if (action == "off") {
-            // Spegnimento dispositivo
-            if (controller.turnDeviceOff(deviceName)) {
-                logger.logEvent("Il dispositivo '" + deviceName + "' si è spento.");
-            } else {
-                logger.logEvent("Errore: dispositivo '" + deviceName + "' non trovato.");
-            }
-        } else if (isValidTime(action)) {
-            // Imposta un timer (HH:MM o HH:MM [HH:MM])
-            size_t secondSpace = action.find(' ');
-            std::string startTime = action.substr(0, secondSpace);
-            std::string endTime = (secondSpace != std::string::npos) ? action.substr(secondSpace + 1) : "";
-
-            if (controller.setDeviceTimer(deviceName, startTime, endTime)) {
-                logger.logEvent("Timer impostato per '" + deviceName + "' a partire da " + startTime +
-                                (endTime.empty() ? "" : " fino a " + endTime) + ".");
-            } else {
-                logger.logEvent("Errore: impossibile impostare il timer per '" + deviceName + "'.");
-            }
-        } else {
-            // Azione non valida
-            logger.logEvent("Errore: comando 'set' non valido per '" + deviceName + "'.");
-        }
+    } catch (const std::exception& e) {
+        logAndPrintError(logger, e.what());
     }
-    break;
-        }
-        case 2: { // "rm"
-            if (controller.removeTimer(args)) {
-                logger.logEvent("Rimosso il timer dal dispositivo '" + args + "'.");
-            } else {
-                logger.logEvent("Errore: dispositivo '" + args + "' non trovato.");
-            }
-            break;
-        }
-        case 3: { // "show"
-            if (args.empty()) {
-                logger.logEvent("Mostrati tutti i consumi.");
-                controller.showAllDevices();
-            } else {
-                logger.logEvent("Mostrato consumo per dispositivo: " + args);
-                controller.showDevice(args);
-            }
-            break;
-        }
-        case 4: { // "reset"
-            if (args == "time") {
-                controller.resetTime();
-                logger.logEvent("Orario resettato a 00:00.");
-            } else if (args == "timers") {
-                controller.resetTimers();
-                logger.logEvent("Timer resettati.");
-            } else if (args == "all") {
-                controller.resetAll();
-                logger.logEvent("Sistema resettato alle condizioni iniziali.");
-            } else {
-                logger.logEvent("Errore: comando 'reset' non valido.");
-            }
-            break;
-        }
-        case 5: { // "exit"
-            logger.logEvent("Sistema domotico terminato.");
-            std::exit(0);
-            break;
-        }
-        default:
-            logger.logEvent("Comando non riconosciuto: " + command);
-            std::cout << "Errore: comando non valido." << std::endl;
-            break;
-    }
+}
 
 int main() {
     Logger logger("domotica.log");
@@ -136,8 +130,8 @@ int main() {
     std::string command;
     while (true) {
         std::cout << ">> ";
-        std::getline(std::cin, command); // Legge il comando dall'utente
-        processCommand(command, logger, controller); // Processa il comando
+        std::getline(std::cin, command);
+        processCommand(command, logger, controller);
     }
 
     return 0;

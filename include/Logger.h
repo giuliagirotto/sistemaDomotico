@@ -25,6 +25,6 @@ class Logger{
         void logEvent(const std::string& event, double value, const std::string& unit);
         // Distruttore
         ~Logger();
-}
+};
 
 #endif

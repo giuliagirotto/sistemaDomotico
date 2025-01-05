@@ -1,12 +1,16 @@
 //GIROTTO GIULIA 2109947
 #include "Logger.h"
 #include <iostream>
+#include <sstream>
+#include <ctime>
+#include <stdexcept>
+#include <iomanip>
 
 //costruttore: apre file di log per scriverci 
 Logger::Logger(const std::string& fileName){
-    logFile.open(fileName, std::ios::app);  //apre in modalità append->aggiungo senza sovrascrivere
+    logFile.open(fileName, std::ios::app);  //apre in modalità append->aggiunge senza sovrascrivere
     if(!logFile){
-        std::cerr<<"... ERRORE - impossibile aprire il file di log..."<<std::endl;
+        throw std::runtime_error("Impossibile aprire il file di log: " + fileName);
     }
 }
 
@@ -16,25 +20,24 @@ std::string Logger::getCurrentTime() const{
     auto tm=*std::localtime(&now);
 
     std::ostringstream oss;
-    oss << "[" << std::put_time(&tm, "%H:%M") << "]"; // [orario]
+    oss << std::put_time(&tm, "%H:%M"); // Formatta l'orario
     return oss.str();
 }
 
 //metodo per loggare un evento generico
 void Logger::logEvent(const std::string& event){
     std::string timestamp=getCurrentTime();
-    std::string logMessage=timestamp+" "+event; //[orarioattuale] evento
+    std::string logMessage = "[" + timestamp + "] " + event; // [HH:MM] Evento
 
-    if(logFile)logFile<<logMessage<<std:endl;  //scrivo nel nel file
-    std::cout<<logMessage<<std::endl;    //stampo a terminale
+    if(logFile)logFile<<logMessage<<std:endl;  //scrive nel nel file
+    std::cout<<logMessage<<std::endl;    //stampa a terminale
 }
 
 //metodo per loggare un evento con valore
 void Logger::logEvent(const std::string& evenet, double value, const std::string& unit){
     std::ostringstream oss;
     oss << event << ": " << value << " " << unit;
-    
-    logEvent(oss.str());
+    logEvent(oss.str()); // Richiama il metodo principale
 }
 
 //distruttore: chiude il file di log
