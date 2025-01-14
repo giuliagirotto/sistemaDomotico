@@ -130,16 +130,16 @@ int main() {
     Controller control(3.4, 3.5); // Classe per gestire i dispositivi e i timer
 
     std::vector<Device> devices; //lista dei dispositivi
-    devices.push_back(new DeviceM("Impianto fotovoltaico", 1, +1.5));
-    devices.push_back(new DeviceCP("Lavatrice", 2, -2.0, 110));
-    devices.push_back(new DeviceCP("Lavastoviglie", 3, -1.5, 195));
-    devices.push_back(new DeviceM("Pompa di calore + termostato", 4, -2.0));
-    devices.push_back(new DeviceCP("Tapparelle elettriche", 5, -0.3, 1));
-    devices.push_back(new DeviceM("Scaldabagno", 6, -1));
-    devices.push_back(new DeviceM("Frigorifero", 7, -0.4));
-    devices.push_back(new DeviceCP("Forno a microonde", 8, -0.8, 2));
-    devices.push_back(new DeviceCP("Asciugatrice", 9, -0.5, 60));
-    devices.push_back(new DeviceCP("Televisore", 10, -0.2, 60));
+    devices.push_back(new Device DeviceM("Impianto fotovoltaico", 1, +1.5));
+    devices.push_back(new Device DeviceCP("Lavatrice", 2, -2.0, 110));
+    devices.push_back(new Device DeviceCP("Lavastoviglie", 3, -1.5, 195));
+    devices.push_back(new Device DeviceM("Pompa di calore + termostato", 4, -2.0));
+    devices.push_back(new Device DeviceCP("Tapparelle elettriche", 5, -0.3, 1));
+    devices.push_back(new Device DeviceM("Scaldabagno", 6, -1));
+    devices.push_back(new Device DeviceM("Frigorifero", 7, -0.4));
+    devices.push_back(new Device DeviceCP("Forno a microonde", 8, -0.8, 2));
+    devices.push_back(new Device DeviceCP("Asciugatrice", 9, -0.5, 60));
+    devices.push_back(new Device DeviceCP("Televisore", 10, -0.2, 60));
 
     for(auto device : devices) {    //aggiungo device al controller
         control.addDevice(device);
