@@ -4,22 +4,22 @@
 
 
 
-DeviceCP::DeviceCP(const std::string& name, int id, double power, int duration)
-    : Device(name, id, power), duration(duration), controller(controller), startTime("") {}
+DeviceCP::DeviceCP(const std::string& name, int id, double power, int duration,Controller& controller)
+    : Device(name, id, power,controller), duration(duration), startTime("") {}
 
 void DeviceCP::turnOn() {
-    if (!var_isOn) {
-        var_isOn = true;
+    if (!isOn) {
+        isOn = true;
     }
 }
 
 void DeviceCP::turnOff() {
-    if (var_isOn) {
-        var_isOn = false;
+    if (isOn) {
+        isOn = false;
     }
 }
 
-void DeviceCP::setTimer(std::string start){
+void DeviceCP::setTimer(std::string start, std::string stop){
     startTime = start;
     int hours,minutes;
     std::istringstream stream(startTime);
@@ -41,7 +41,7 @@ void DeviceCP::removeTimer(){
 
 void DeviceCP::checkTimer(std::string currentTime) {
     
-    timeon++;
+    timeOn++;
     if (startTime == currentTime) {
         controller.turnOn(this->getName());
     }
