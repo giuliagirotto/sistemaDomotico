@@ -35,10 +35,8 @@ bool startsWith(const std::string& str, const std::string& prefix){
 void handleDeviceAction(const std::string& deviceName, const std::string& action, Logger& log, Controller& control) {
     if (action == "on") {
         control.turnOn(deviceName);
-        log.logEvent("Il dispositivo '" + deviceName + "' si è acceso.");
     } else if (action == "off") {
         control.turnOff(deviceName);
-        log.logEvent("Il dispositivo '" + deviceName + "' si è spento.");
     } else {
         throw std::invalid_argument("Azione non valida: " + action);
     }
