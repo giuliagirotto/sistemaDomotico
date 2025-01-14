@@ -191,4 +191,6 @@ CMakeFiles/sistemaDomotico.dir/src/main.cpp.o: \
  /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/Device.h \
  /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/Controller.h \
  /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/Logger.h \
- /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/Device.h
+ /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/Device.h \
+ /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/DeviceCP.h \
+ /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/DeviceM.h
