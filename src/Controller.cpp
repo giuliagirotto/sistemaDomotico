@@ -56,7 +56,7 @@ std::string Controller::incrementMinute(const std::string& time){
     hours = 0;
   }
 
-  std::ostringstram newTime; //genero la stringa del nuovo orario
+  std::ostringstream newTime; //genero la stringa del nuovo orario
   newTime << (hours < 10 ? "0" : "") << hours << "."
           << (minutes < 10 ? "0" : "") << minutes;
   return newTime.str();
