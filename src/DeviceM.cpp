@@ -10,14 +10,12 @@ DeviceM::DeviceM(const std::string& name, int id, double power)
 void DeviceM::turnOn() {
     if (!isOn) {
         isOn = true;
-        log.logEvent("[" + currentTime + "] Il dispositivo '" + name + "' si è acceso.");
     }
 }
 
 void DeviceM::turnOff() {
     if (isOn) {
         isOn = false;
-        log.logEvent("[" + currentTime + "] Il dispositivo '" + name + "' si è spento.");
     }
 }
 
