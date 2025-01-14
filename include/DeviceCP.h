@@ -13,6 +13,8 @@ public:
     void turnOn() override;
     void turnOff() override;
     void checkTimer(std::string currentTime) override; 
+    void setTimer(std::string startTime,std::string endTime) override;
+    void removeTimer() override;
 };
 
 #endif // DEVICE_CP_H
