@@ -13,6 +13,8 @@ public:
     void turnOn() override;
     void turnOff() override;
     void checkTimer(int currentTime) override;
+    void setTimer(startTime, endTime) override;
+    void removeTimer() override;
 };
 
 #endif // DEVICE_M_H
