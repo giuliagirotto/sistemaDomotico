@@ -8,6 +8,7 @@ protected:
     std::string name;
     int id;
     double power;
+    double totalEnergy;
     bool isOn;
 
 public:
@@ -20,6 +21,9 @@ public:
 
     const std::string& getName() const;
     bool isDeviceOn() const;
+
+    double getInstantPower() const;
+    double getTotalEnergyConsumed() const;
 };
 
 #endif // DEVICE_H
