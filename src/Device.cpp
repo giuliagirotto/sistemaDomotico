@@ -8,6 +8,6 @@ const std::string& Device::getName() const {
     return name;
 }
 
-bool Device::isDeviceOn() const {
+bool Device::isOn() const {
     return isOn;
 }
