@@ -2,18 +2,18 @@
 #include <iostream>
 
 
-DeviceM::DeviceM(const std::string& name, int id, double power)
+DeviceM::DeviceM(const std::string& name, int id, double power, Controller& controller)
     : Device(name, id, power, controller), startTime(""), stopTime("") {}
 
 void DeviceM::turnOn() {
-    if (!var_isOn) {
-        var_isOn = true;
+    if (!isOn) {
+        isOn = true;
     }
 }
 
 void DeviceM::turnOff() {
-    if (var_isOn) {
-        var_isOn = false;
+    if (isOn) {
+        isOn = false;
     }
 }
 
@@ -23,13 +23,13 @@ void DeviceM::setTimer(std::string start,std::string stop){
 }
 
 void DeviceM::removeTimer(){
-    if (var_isOn){
+    if (isOn){
         startTime = "";
-        stoptime = "";
+        stopTime = "";
     }
-    else if (var_isOn){
+    else if (isOn){
         startTime = "";
-        stoptime = "";
+        stopTime = "";
         controller.turnOff(this->getName());
     }
     
