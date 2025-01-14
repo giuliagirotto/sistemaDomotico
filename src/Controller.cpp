@@ -18,7 +18,7 @@ Controller::Controller(double maxPower, double solarProduction):
 
 //distruttore
 Controller::~Controller(){
-  log.logEvent("[" + currentTime + "] Sistema domotico terminato");
+  logger.logEvent("[" + currentTime + "] Sistema domotico terminato");
 }
 
 int Controller::compareTime(const std::string& time1, const std::string& time2){
@@ -70,7 +70,7 @@ void Controller::addDevice(const std::shared_ptr<Device>& device){
     throw std::runtime_error("Il dispositivo: " + device->getName() + " esiste già.");
   }
   devices[device->getName()] = device;
-  log.logEvent("[" + currentTime + "] Aggiunto dispositivo: " + device->getName());
+  logger.logEvent("[" + currentTime + "] Aggiunto dispositivo: " + device->getName());
 }
 
 //Accendo un dispositivo e aggiorno la potenza
@@ -85,7 +85,7 @@ void Controller::turnOn(const std::string& deviceName){
     if(newPower <= (maxPower + solarProduction)) {
       it->second->turnOn();
       currentPower = newPower; 
-      log.logEvent("[" + currentTime + "] Il dispositivo " + device -> getName() + " è acceso.");
+      logger.logEvent("[" + currentTime + "] Il dispositivo " + device -> getName() + " è acceso.");
     } else {
       enforcePowerLimit(); //Mi assiucuro che il limite di potenza non sia superato
     }  
@@ -101,7 +101,7 @@ void Controller::turnOff(const std::string& deviceName){
   if(it->second-> isOn()){
     it->second->turnOff();
     currentPower -= it->second->getInstantPower();
-    log.logEvent("[" + currentTime "] Il dispositivo " + device -> getName() + " è spento.");
+    logger.logEvent("[" + currentTime "] Il dispositivo " + device -> getName() + " è spento.");
   }
 }
 
@@ -114,7 +114,7 @@ void Controller::setDeviceTimer (const std::string& deviceName, const std::strin
   }
   auto foundDevice = device -> second;
   foundDevice -> setTimer(startTime, stopTime);
-  log.logEvent("[" + currentTime +"] Impostato un timer per il dispositivo " + deviceName + " dalle " + startTime + " alle " + stopTime);
+  logger.logEvent("[" + currentTime +"] Impostato un timer per il dispositivo " + deviceName + " dalle " + startTime + " alle " + stopTime);
 }
 
 //Rimuovo il timer per un dispositivo
@@ -124,7 +124,7 @@ void Controller::removeDeviceTimer (const std::string& deviceName){
     throw std::runtime_error("Dispositivo non trovato: " + deviceName);
   }
   it -> second -> removeTimer();
-  log.logEvent("[" + currentTime + "] Rimosso il timer dal dispositivo " + deviceName);
+  logger.logEvent("[" + currentTime + "] Rimosso il timer dal dispositivo " + deviceName);
 }
 
 //MONITORO LA POTENZA  
@@ -143,7 +143,7 @@ void Controller::showDevices() const{
     }
   }
   //Scrivo nel logger
-  log.logEvent("[" + currentTime + "] Il sistema, fino a questo momento, ha prodotto: " + 
+  logger.logEvent("[" + currentTime + "] Il sistema, fino a questo momento, ha prodotto: " + 
       std::toString(totalEnergyProduced) + " kW e consumato " + 
       std::toString(totalEnergyConsumed) + " kW.");
   for(const auto& [name,device] : devices) {
@@ -152,7 +152,7 @@ void Controller::showDevices() const{
     if(deviceEnergy<0){
       deviceEnergy = -deviceEnergy;
     }
-    log.logEvent("[" + currentTime + "] Il dispositivo '" + device->getName() + "' ha " +
+    logger.logEvent("[" + currentTime + "] Il dispositivo '" + device->getName() + "' ha " +
       tipo + std::to_string(deviceEnergy) + " kWh");
   }
 
@@ -164,7 +164,7 @@ void Controller::showDevice(const std::string& deviceName) const{
   }
   double energia = device ->second->getTotalEnergyConsumed();
   std::string tipo = (energia>0) ? "prodotto" : "consumato";
-  log.logEvent("[" + currentTime + "] Il dispositivo '" + device->getName() + "' ha " +
+  logger.logEvent("[" + currentTime + "] Il dispositivo '" + device->getName() + "' ha " +
       tipo + std::to_string(deviceEnergy) + " kWh");
 }
 
@@ -182,7 +182,7 @@ void Controller::setTime(const std::string& time){
     enforcePowerLimit();
   }
   currentTime = time;
-  log.logEvent("[" + currentTime + "] L'orario attuale è " + currentTime +" (alla fine dell'esecuzione)");
+  logger.logEvent("[" + currentTime + "] L'orario attuale è " + currentTime +" (alla fine dell'esecuzione)");
 }
 
 //Reset orario
@@ -192,7 +192,7 @@ void Controller::resetTime(){
       device->turnOff();
     }
   currentPower = 0.0;
-  log.logEvent("[" + currentTime + "] L'orario attuale è " + currentTime);
+  logger.logEvent("[" + currentTime + "] L'orario attuale è " + currentTime);
 }
 
 //Reset timer
@@ -200,7 +200,7 @@ void Controller::resetTimers(){
   for(auto& [name, devices] : devices){
     device -> removeTimer();
   }
-  log.logEvent("[" + currentTime + " ] Tutti i timer sono stati rimossi.");
+  logger.logEvent("[" + currentTime + " ] Tutti i timer sono stati rimossi.");
 }
 
 //Reset del sistema
@@ -211,7 +211,7 @@ void Controller::resetAll(){
     device -> turnOff();
   }
   currentPower = 0.0;
-  log.logEvent("[" + currentTime + " ] Il sistema è stato resettato.");
+  logger.logEvent("[" + currentTime + " ] Il sistema è stato resettato.");
 }
 
 //LIMITE POTENZA
@@ -234,6 +234,6 @@ void Controller::enforcePowerLimit(){
     }
     device -> turnOff();
     currentPower -= device->getInstantPower();
-    log.logEvent("[" + currentTime + " ] Il dispositivo " + device->getName() + " è stato spento per eccesso di consumo.");
+    logger.logEvent("[" + currentTime + " ] Il dispositivo " + device->getName() + " è stato spento per eccesso di consumo.");
   }
 }
