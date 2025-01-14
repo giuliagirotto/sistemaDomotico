@@ -1,8 +1,6 @@
 #include "DeviceCP.h"
 #include <iostream>
-#include "Logger.h"
 
-extern Logger logger; // Logger globally available
 
 DeviceCP::DeviceCP(const std::string& name, int id, double power, int duration)
     : Device(name, id, power), duration(duration), controller(controller), startTime(0) {}
