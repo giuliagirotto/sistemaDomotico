@@ -23,6 +23,14 @@ void logAndPrintError(Logger& log, const std::string& message) {
     std::cout << "Errore: " << message << std::endl;
 }
 
+//funzione per controllo dell'iniziale
+bool startsWith(const std::string& str, const std::string& prefix){
+    if(str.size()<prefix.size()){
+        return false; //la stringa è più corta del prefisso di controllo
+    }
+    return str.compare(0,prefix.size(), prefix)==0; //confronta il prefisso
+}
+
 // Funzione helper per accensione/spegnimento dispositivo
 void handleDeviceAction(const std::string& deviceName, const std::string& action, Logger& log, Controller& control) {
     if (action == "on") {
