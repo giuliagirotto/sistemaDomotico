@@ -28,7 +28,7 @@ int Controller::compareTime(const std::string& time1, const std::string& time2){
   std::istringstream timeStream1(time1);
   timeStream1 >> hours1 >> dot >> minutes1;
 
-  std::istringstram timeStream2(time2);
+  std::istringstream timeStream2(time2);
   timeStream2 >> hours2 >> dot >> minutes2;
 
   if(hours1 < hours2 || (hours1 == hours2 && minutes1 < minutes2)){ //confronto due orari
