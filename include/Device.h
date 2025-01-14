@@ -27,7 +27,7 @@ public:
     const std::string& getName() const;
     bool isOn() const;
     
-    void energyConsumedMonitor(time_On);
+    void energyConsumedMonitor(time_on);
 
     double getInstantPower() const;
     double getTotalEnergyConsumed() const;
