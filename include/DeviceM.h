@@ -13,7 +13,7 @@ public:
     void turnOn() override;
     void turnOff() override;
     void checkTimer(std::string currentTime) override; 
-    void setTimer(std::string startTime,std::string endTime) override;
+    void setTimer(std::string startTime,std::string stopTime) override;
     void removeTimer() override;
 };
 

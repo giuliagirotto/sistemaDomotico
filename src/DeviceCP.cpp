@@ -29,7 +29,7 @@ void DeviceCP::setTimer(std::string start, std::string stop){
     hours = endTimeMin / 60;
     minutes = endTimeMin % 60;
     
-    std::ostringstream endTime;
+    std::ostringstream stopTime;
     endTime << (hours < 10 ? "0" : "") << hours << "."
           << (minutes < 10 ? "0" : "") << minutes;
     stopTime = endTime.str();
