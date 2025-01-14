@@ -76,10 +76,6 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                     std::string time = args.substr(5);
                     if (isValidTime(time)) {
                         control.setTime(time);
-                        log.logEvent("Orario impostato a: " + time);
-                    } else {
-                        throw std::invalid_argument("Orario non valido: " + time);
-                    }
                 } else {
                     size_t firstSpace = args.find(' ');
                     std::string deviceName = args.substr(0, firstSpace);
