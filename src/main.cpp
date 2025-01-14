@@ -72,8 +72,11 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                     } 
                 } else {
                     size_t firstSpace = args.find(' ');
-                    std::string deviceName = args.substr(0, firstSpace);
-                    std::string action = args.substr(firstSpace + 1);
+                    if (lastSpace == std::string::npos){
+                        throw std::invalid_argument("Nome dispositivo e azione non validi.");
+                    }
+                    std::string deviceName = args.substr(0, lastSpace);
+                    std::string action = args.substr(lastSpace + 1);
                     handleDeviceAction(deviceName, action, log, control);
                 }
                 break;
