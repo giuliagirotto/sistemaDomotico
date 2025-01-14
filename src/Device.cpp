@@ -17,8 +17,7 @@ double Device::getInstantPower(){
     return power;
 }
 
-void Device::energyConsumedMonitor(std::string start_time, std::string end_time){
-    iniTime = timeToMin(start_time);
-    finTime = timeToMin(end_time);
-    totalEnergy += (finTime - iniTime);
+void Device::energyConsumedMonitor(time_on){
+    
+
 }
