@@ -29,15 +29,15 @@ void Logger::logEvent(const std::string& event){
     std::string timestamp=getCurrentTime();
     std::string logMessage = "[" + timestamp + "] " + event; // [HH:MM] Evento
 
-    if(logFile)logFile<<logMessage<<std:endl;  //scrive nel nel file
-    std::cout<<logMessage<<std::endl;    //stampa a terminale
+    if(logFile)logFile<<logMessage<<"\n";  //scrive nel nel file
+    std::cout<<logMessage<<"\n";    //stampa a terminale
 }
 
 //metodo per loggare un evento con valore
 void Logger::logEvent(const std::string& event, double value, const std::string& unit){
     std::ostringstream oss;
     oss << event << ": " << value << " " << unit;
-    logEvent(oss.str()); // Richiama il metodo principale
+    logEvent(oss.str()); // Richiama il metodo generico
 }
 
 //distruttore: chiude il file di log
