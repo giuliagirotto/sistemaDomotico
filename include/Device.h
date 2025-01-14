@@ -12,7 +12,7 @@ protected:
     double totalEnergy;
     std::string tempStartTime;
     std::string tempEndTime;
-    int timeon;
+    int timeOn;
     bool isOn;
     Controller& controller;
 
