@@ -9,7 +9,7 @@ private:
     std::string startTime;
 
 public:
-    DeviceM(const std::string& name, int id, double power);
+    DeviceM(const std::string& name, int id, double power, Controller& controller);
     void turnOn() override;
     void turnOff() override;
     void checkTimer(int currentTime) override;
