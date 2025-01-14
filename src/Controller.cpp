@@ -83,7 +83,6 @@ void Controller::turnOn(const std::string& deviceName){
     double newPower = currentPower + it ->second->getInstantPower();
     if(newPower <= (maxPower + solarProduction)) {
       it->second->turnOn();
-      it->second->setTempStartTime(currentTime);
       currentPower = newPower; 
       log.logEvent("[" + currentTime + "] Il dispositivo " + device -> getName() + " è acceso.");
     } else {
@@ -100,7 +99,6 @@ void Controller::turnOff(const std::string& deviceName){
   
   if(it->second-> isOn()){
     it->second->turnOff();
-    it->second->setTempEndTime(currentTime);
     currentPower -= it->second->getInstantPower();
     log.logEvent("[" + currentTime "] Il dispositivo " + device -> getName() + " è spento.");
   }
