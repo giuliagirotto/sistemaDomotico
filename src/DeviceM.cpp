@@ -3,7 +3,7 @@
 
 
 DeviceM::DeviceM(const std::string& name, int id, double power)
-    : Device(name, id, power, controller), stopTime(0) {}
+    : Device(name, id, power, controller), startTime(""), stopTime("") {}
 
 void DeviceM::turnOn() {
     if (!isOn) {
@@ -22,6 +22,18 @@ void DeviceM::setTimer(std::string start,std::string stop){
     stopTime = stop;
 }
 
+void DeviceM::removeTimer(){
+    if (!device.isOn){
+        startTime = "";
+        stoptime = "";
+    }
+    else if (device.isOn){
+        startTime = "";
+        stoptime = "";
+        controller.turnOff(this->getName());
+    }
+    
+}
 void DeviceM::checkTimer(std::string currentTime) {
     // Manual devices do not have automatic timers, so no action needed here
 
