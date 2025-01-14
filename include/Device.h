@@ -17,13 +17,16 @@ public:
 
     virtual void turnOn() = 0;
     virtual void turnOff() = 0;
-    virtual void updateTimer(int currentTime) = 0;
+    virtual void checkTimer(int currentTime) = 0;
+    virtual void setTimer(startTime, endTime) = 0;
+    virtual void removeTimer() = 0;
 
     const std::string& getName() const;
     bool isOn() const;
 
     double getInstantPower() const;
     double getTotalEnergyConsumed() const;
+    
 };
 
 #endif // DEVICE_H
