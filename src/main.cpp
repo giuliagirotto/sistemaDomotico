@@ -26,7 +26,7 @@ void logAndPrintError(Logger& log, const std::string& message) {
 }
 
 //funzione per controllo dell'iniziale
-bool startsWith(const std::string& str, const std::string& prefix){
+bool startWith(const std::string& str, const std::string& prefix){
     if(str.size()<prefix.size()){
         return false; //la stringa è più corta del prefisso di controllo
     }
@@ -69,7 +69,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
         switch (it->second) {
             case 1: {
                 //Gestione del comando "set"
-                if (startsWith(args, "time ")) {
+                if (args.startWith("time ")) {
                     std::string time = args.substr(5);
                     if (isValidTime(time)) {
                         control.setTime(time);
@@ -128,6 +128,22 @@ void processCommand(const std::string& command, Logger& log, Controller& control
 int main() {
     Logger log("domotica.txt");
     Controller control(3.4, 3.5); // Classe per gestire i dispositivi e i timer
+
+    std::vector<Device> devices; //lista dei dispositivi
+    devices.push_back(new DeviceM("Impianto fotovoltaico", 1, +1.5));
+    devices.push_back(new DeviceCP("Lavatrice", 2, -2.0, 110));
+    devices.push_back(new DeviceCP("Lavastoviglie", 3, -1.5, 195));
+    devices.push_back(new DeviceM("Pompa di calore + termostato", 4, -2.0));
+    devices.push_back(new DeviceCP("Tapparelle elettriche", 5, -0.3, 1));
+    devices.push_back(new DeviceM("Scaldabagno", 6, -1));
+    devices.push_back(new DeviceM("Frigorifero", 7, -0.4));
+    devices.push_back(new DeviceCP("Forno a microonde", 8, -0.8, 2));
+    devices.push_back(new DeviceCP("Asciugatrice", 9, -0.5, 60));
+    devices.push_back(new DeviceCP("Televisore", 10, -0.2, 60));
+
+    for(auto device : devices) {    //aggiungo device al controller
+        control.addDevice(device);
+    }
 
     std::cout << "Sistema domotico avviato. Inserisci un comando:" << std::endl;
 
