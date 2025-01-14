@@ -28,6 +28,7 @@ public:
 
     const std::string& getName() const;
     bool isOn() const;
+    void energyConsumedMonitor(std::string start_time, std::string end_time);
 
     double getInstantPower() const;
     double getTotalEnergyConsumed() const;
