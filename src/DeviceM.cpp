@@ -36,7 +36,7 @@ void DeviceM::removeTimer(){
 }
 void DeviceM::checkTimer(std::string currentTime) {
     // Manual devices do not have automatic timers, so no action needed here
-
+    
     if (startTime == currentTime) {
         controller.turnOn(this->getName());
     }
