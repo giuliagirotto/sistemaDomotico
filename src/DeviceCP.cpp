@@ -10,14 +10,14 @@ DeviceCP::DeviceCP(const std::string& name, int id, double power, int duration)
 void DeviceCP::turnOn() {
     if (!isOn) {
         isOn = true;
-        logger.logEvent("Il dispositivo '" + name + "' si è acceso.");
+        log.logEvent("[" + currentTime + "] Il dispositivo '" + name + "' si è acceso.");
     }
 }
 
 void DeviceCP::turnOff() {
     if (isOn) {
         isOn = false;
-        logger.logEvent("Il dispositivo '" + name + "' si è spento.");
+        log.logEvent("[" + currentTime + "] Il dispositivo '" + name + "' si è spento.");
     }
 }
 
