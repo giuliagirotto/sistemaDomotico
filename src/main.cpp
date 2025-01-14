@@ -62,10 +62,10 @@ void processCommand(const std::string& command, Logger& log, Controller& control
     std::string args = (spacePos != std::string::npos) ? command.substr(spacePos + 1) : "";
 
     auto it = commandMap.find(mainCommand);
-    if (it == commandMap.end()) {
+    /*if (it == commandMap.end()) {
         logAndPrintError(log, "Comando non riconosciuto: " + command);
         return;
-    }
+    }*/
 
     
     try {
