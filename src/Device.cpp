@@ -3,7 +3,7 @@
 #include <iostream>
 
 Device::Device(const std::string& name, int id, double power, Controller& controller)
-    : name(name), id(id), power(power), controller(controller) , tempStartTime(""), tempEndTime(""), timeOn(0), isOn(false) {}
+    : name(name), id(id), power(power), controller(controller) , timeOn(0), isOn(false) {}
 
 const std::string& Device::getName() const {
     return name;
