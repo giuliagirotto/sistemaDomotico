@@ -71,7 +71,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                         control.setTime(time);
                     } 
                 } else {
-                    size_t firstSpace = args.find(' ');
+                    size_t lastSpace = args.find(' ');
                     if (lastSpace == std::string::npos){
                         throw std::invalid_argument("Nome dispositivo e azione non validi.");
                     }
