@@ -11,7 +11,7 @@ const std::string& Device::getName() const {
     return name;
 }
 
-//accende dispositivo
+//Controlla se il dispositivo e acceso o no.
 bool Device::isDeviceOn() const {
     return isOn;
 }
