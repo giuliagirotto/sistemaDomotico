@@ -5,30 +5,31 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include "Device.h"
+#include "Logger.h"
 
 class Device;
 class Logger;
 
 class Controller {
 private:
-    std::vector<std::unique_ptr<Device>> devices;
+    std::unordered_map<std::string, std::shared_ptr<Device>> devices; // Change to unordered_map
     std::shared_ptr<Logger> logger;
     double maxPower; //potenza massima 
     double solarProduction; //produzione solare
     double currentPower; //potenza attuale
     std::string currentTime; //orario attuale
     int compareTime(const std::string& time1, const std::string& time2);
-    std::string incrementMinute(const std::string& time);
-
     void enforcePowerLimit(); //applica il limite della potenza
+    std::string incrementMinute(const std::string& time);
 
 public:
     Controller(double maxPower, double solarProduction); //costruttore
     ~Controller (); //distruttore
     
     //gestione dispositivi
-    void addDevice(const std::shared_ptr<Device> device);
+    void addDevice(const std::shared_ptr<Device>& device);
     void turnOn(const std::string& deviceName);
     void turnOff(const std::string& deviceName);
 
