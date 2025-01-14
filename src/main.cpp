@@ -109,7 +109,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                 throw std::logic_error("Comando non gestito correttamente.");
         }
     } catch (const std::exception& e) {
-        logAndPrintError(log, e.what());
+        //logAndPrintError(log, e.what());
     }
 }
 
