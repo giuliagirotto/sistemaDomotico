@@ -34,10 +34,10 @@ bool startsWith(const std::string& str, const std::string& prefix){
 // Funzione helper per accensione/spegnimento dispositivo
 void handleDeviceAction(const std::string& deviceName, const std::string& action, Logger& log, Controller& control) {
     if (action == "on") {
-        control.turnDeviceOn(deviceName);
+        control.turnOn(deviceName);
         log.logEvent("Il dispositivo '" + deviceName + "' si è acceso.");
     } else if (action == "off") {
-        control.turnDeviceOff(deviceName);
+        control.turnOff(deviceName);
         log.logEvent("Il dispositivo '" + deviceName + "' si è spento.");
     } else {
         throw std::invalid_argument("Azione non valida: " + action);
@@ -67,7 +67,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
         switch (it->second) {
             case 1: {
                 // Gestione del comando "set"
-                if (args.starts_with("time ")) {
+                if (args.startsWith("time ")) {
                     std::string time = args.substr(5);
                     if (isValidTime(time)) {
                         control.setTime(time);
@@ -84,7 +84,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                 break;
             }
             case 2: {
-                control.removeTimer(args);
+                control.removeDeviceTimer(args);
                 log.logEvent("Rimosso il timer dal dispositivo '" + args + "'.");
                 
                 //throw std::runtime_error("Impossibile rimuovere il timer per il dispositivo: " + args);
