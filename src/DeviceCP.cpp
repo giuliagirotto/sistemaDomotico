@@ -26,18 +26,19 @@ void DeviceCP::turnOff() {
 void DeviceCP::setTimer(std::string start, std::string stop){
     startTime = start; // tempo di inizio.
     int hours,minutes;
-    
+
     std::istringstream stream(startTime);
     stream >> hours >> minutes;
+
     int timeToMin = hours * 60 + minutes;
     int endTimeMin = timeToMin + duration;
     hours = endTimeMin / 60;
     minutes = endTimeMin % 60;
     
     std::ostringstream stopTime;
-    endTimeMin << (hours < 10 ? "0" : "") << hours << "."
+    stopTime << (hours < 10 ? "0" : "") << hours << "."
           << (minutes < 10 ? "0" : "") << minutes;
-    stopTime = endTimeMin.str(); // ora di fine ciclo, calcolato utlizzando la duration e l'orario iniziale.
+    stopTime = stopTime.str(); // ora di fine ciclo, calcolato utlizzando la duration e l'orario iniziale.
 }
 
 // rimuove il timer.
