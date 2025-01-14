@@ -20,7 +20,7 @@ public:
     virtual void updateTimer(int currentTime) = 0;
 
     const std::string& getName() const;
-    bool isDeviceOn() const;
+    bool isOn() const;
 
     double getInstantPower() const;
     double getTotalEnergyConsumed() const;
