@@ -55,7 +55,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
 
     auto it = commandMap.find(mainCommand);
     if (it == commandMap.end()) {
-        logEvent("Comando non riconosciuto: " + command);
+        log->logEvent("Comando non riconosciuto: " + command);
         return;
     }
 
