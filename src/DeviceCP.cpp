@@ -26,6 +26,7 @@ void DeviceCP::turnOff() {
 void DeviceCP::setTimer(std::string start, std::string stop){
     startTime = start; // tempo di inizio.
     int hours,minutes;
+    
     std::istringstream stream(startTime);
     stream >> hours >> minutes;
     int timeToMin = hours * 60 + minutes;
