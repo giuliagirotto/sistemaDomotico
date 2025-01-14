@@ -1,6 +1,7 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
+#include "Controller.h"
 #include <string>
 
 class Controller;
@@ -12,7 +13,7 @@ protected:
     double power;
     double totalEnergy;
     int timeOn;
-    bool var_isOn;
+    bool isOn;
     Controller& controller;
 
 public:
@@ -26,11 +27,11 @@ public:
     virtual void removeTimer() = 0;
 
     const std::string& getName() const;
-    bool isOn() const;
+    bool isDeviceOn() const;
     void totalEnergyConsumed();
     
-    double getInstantPower() const;
-    double getTotalEnergyConsumed() const;
+    double getInstantPower();
+    double getTotalEnergyConsumed() ;
    
     
 };
