@@ -19,8 +19,17 @@ void DeviceM::turnOff() {
     }
 }
 
-void DeviceM::updateTimer(int currentTime) {
+void DeviceM::setTimer(std::string start,std::string stop){
+    startTime = start;
+    stopTime = stop;
+}
+
+void DeviceM::checkTimer(std::string currentTime) {
     // Manual devices do not have automatic timers, so no action needed here
+
+    if (startTime == currentTime) {
+        turnOn();
+    }
     if (stopTime == currentTime) {
         turnOff();
     }
