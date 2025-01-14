@@ -5,8 +5,8 @@
 
 class DeviceM : public Device {
 private:
-    int stopTime;
-    int startTime;
+    std::string stopTime;
+    std::string startTime;
 
 public:
     DeviceM(const std::string& name, int id, double power);
