@@ -10,9 +10,10 @@ protected:
     double power;
     double totalEnergy;
     bool isOn;
+    Controller& controller;
 
 public:
-    Device(const std::string& name, int id, double power);
+    Device(const std::string& name, int id, double power, Controller& controller);
     virtual ~Device() = default;
 
     virtual void turnOn() = 0;
