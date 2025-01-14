@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Logger.h"
 
-extern Logger logger; // Logger globally available
+extern Logger log; // Logger globally available
 
 DeviceM::DeviceM(const std::string& name, int id, double power)
     : Device(name, id, power), stopTime(0) {}
@@ -10,14 +10,14 @@ DeviceM::DeviceM(const std::string& name, int id, double power)
 void DeviceM::turnOn() {
     if (!isOn) {
         isOn = true;
-        logger.logEvent("Il dispositivo '" + name + "' si è acceso.");
+        log.logEvent("[" + currentTime + "] Il dispositivo '" + name + "' si è acceso.");
     }
 }
 
 void DeviceM::turnOff() {
     if (isOn) {
         isOn = false;
-        logger.logEvent("Il dispositivo '" + name + "' si è spento.");
+        log.logEvent("[" + currentTime + "] Il dispositivo '" + name + "' si è spento.");
     }
 }
 
