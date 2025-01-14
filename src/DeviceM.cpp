@@ -35,15 +35,12 @@ void DeviceM::removeTimer(){
     
 }
 void DeviceM::checkTimer(std::string currentTime) {
-
+    timeOn++;
     if (startTime == currentTime) {
         controller.turnOn(this->getName());
     }
     if (stopTime == currentTime) {
         controller.turnOff(this->getName());
     }
-    if (isOn){
-        energyConsumedMonitor(std::string getTempStartTime(),std::string currentTime);
-    }
-    if (is
+    
 }
