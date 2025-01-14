@@ -1,3 +1,4 @@
+#include "Device.h"
 #include "Controller.h"
 #include <iostream>
 
@@ -8,19 +9,18 @@ const std::string& Device::getName() const {
     return name;
 }
 
-bool Device::isOn() const {
-    return var_isOn;
+bool Device::isDeviceOn() const {
+    return isOn;
 }
 
-double Device::getInstantPower(){
+double Device::getInstantPower() {
     return power;
 }
 
 void Device::totalEnergyConsumed(){
     totalEnergy = power * timeOn / 60;
 }
-double Device::getTotalEnergyConsumed(){
+double Device::getTotalEnergyConsumed() {
     totalEnergyConsumed();
     return totalEnergy;
 }
-
