@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/local/girogiu95354/sistemaDomotico/Include
+CXX_INCLUDES = -I/home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include
 
 CXX_FLAGS = -std=gnu++17
 
