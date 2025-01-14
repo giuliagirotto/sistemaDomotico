@@ -43,7 +43,9 @@ void DeviceM::removeTimer(){
 
 //controlla se e tempo di attivare il timer.
 void DeviceM::checkTimer(std::string currentTime) {
-    timeOn++; // aggiunge i minuti
+    if (isOn) { 
+        timeOn++;  
+    }
     if (startTime == currentTime) {
         controller.turnOn(this->getName());
     }
