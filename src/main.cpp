@@ -134,16 +134,16 @@ int main() {
     
     // Lista dei dispositivi usando shared_ptr
     std::vector<std::shared_ptr<Device>> devices;
-    devices.push_back(std::make_shared<DeviceM>("Impianto fotovoltaico", 1, +1.5));
-    devices.push_back(std::make_shared<DeviceCP>("Lavatrice", 2, -2.0, 110));
-    devices.push_back(std::make_shared<DeviceCP>("Lavastoviglie", 3, -1.5, 195));
-    devices.push_back(std::make_shared<DeviceM>("Pompa di calore + termostato", 4, -2.0));
-    devices.push_back(std::make_shared<DeviceCP>("Tapparelle elettriche", 5, -0.3, 1));
-    devices.push_back(std::make_shared<DeviceM>("Scaldabagno", 6, -1));
-    devices.push_back(std::make_shared<DeviceM>("Frigorifero", 7, -0.4));
-    devices.push_back(std::make_shared<DeviceCP>("Forno a microonde", 8, -0.8, 2));
-    devices.push_back(std::make_shared<DeviceCP>("Asciugatrice", 9, -0.5, 60));
-    devices.push_back(std::make_shared<DeviceCP>("Televisore", 10, -0.2, 60));
+    devices.push_back(std::make_shared<DeviceM>("Impianto fotovoltaico", 1, +1.5, control));
+    devices.push_back(std::make_shared<DeviceCP>("Lavatrice", 2, -2.0, 110,control));
+    devices.push_back(std::make_shared<DeviceCP>("Lavastoviglie", 3, -1.5, 195,control));
+    devices.push_back(std::make_shared<DeviceM>("Pompa di calore + termostato", 4, -2.0,control));
+    devices.push_back(std::make_shared<DeviceCP>("Tapparelle elettriche", 5, -0.3, 1,control));
+    devices.push_back(std::make_shared<DeviceM>("Scaldabagno", 6, -1,control));
+    devices.push_back(std::make_shared<DeviceM>("Frigorifero", 7, -0.4,control));
+    devices.push_back(std::make_shared<DeviceCP>("Forno a microonde", 8, -0.8, 2, control));
+    devices.push_back(std::make_shared<DeviceCP>("Asciugatrice", 9, -0.5, 60, control));
+    devices.push_back(std::make_shared<DeviceCP>("Televisore", 10, -0.2, 60, control));
 
     for(auto device : devices) {    //aggiungo device al controller
         control.addDevice(device);
