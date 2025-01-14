@@ -12,7 +12,7 @@ public:
     DeviceCP(const std::string& name, int id, double power, int duration, Controller& controller);
     void turnOn() override;
     void turnOff() override;
-    void checkTimer(int currentTime) override;
+    void checkTimer(int currentTime) override; 
 };
 
 #endif // DEVICE_CP_H
