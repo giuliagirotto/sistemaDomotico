@@ -227,7 +227,7 @@ void Controller::enforcePowerLimit(){
       activeDevices.push_back({name,device});
     }
   }
-  //inverto l'ordine dei device per spegnerli in ordine opposto a quello di accensione
+  //Inverto l'ordine dei device per spegnerli in ordine opposto a quello di accensione
   std::reverse(activeDevices.begin(), activeDevices.end());
   //Spengo i dispositivi nel caso in cui la potenza massima sia stata superata
   for (const auto& [name,device] : activeDevices) {
