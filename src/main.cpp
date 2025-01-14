@@ -22,11 +22,6 @@ bool isValidTime(const std::string& time) {
     }
 }
 
-// Funzione helper per loggare errori
-void logAndPrintError(Logger& log, const std::string& message) {
-    log.logEvent(message);
-    std::cout << "Errore: " << message << std::endl;
-}
 
 //funzione per controllo dell'iniziale
 bool startsWith(const std::string& str, const std::string& prefix){
