@@ -22,8 +22,9 @@ void DeviceCP::turnOff() {
     }
 }
 
+// imposta un timer
 void DeviceCP::setTimer(std::string start, std::string stop){
-    startTime = start;
+    startTime = start; // tempo di inizio.
     int hours,minutes;
     std::istringstream stream(startTime);
     stream >> hours >> minutes;
@@ -35,13 +36,16 @@ void DeviceCP::setTimer(std::string start, std::string stop){
     std::ostringstream stopTime;
     endTimeMin << (hours < 10 ? "0" : "") << hours << "."
           << (minutes < 10 ? "0" : "") << minutes;
-    stopTime = endTimeMin.str();
+    stopTime = endTimeMin.str(); // ora di fine ciclo, calcolato utlizzando la duration e l'orario iniziale.
 }
 
+// rimuove il timer.
 void DeviceCP::removeTimer(){
         startTime = "";
 }
 
+
+//controlla se e tempo per attivare un dispositivo
 void DeviceCP::checkTimer(std::string currentTime) {
     
     timeOn++;
