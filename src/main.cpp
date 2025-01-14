@@ -114,7 +114,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
 }
 
 int main() {
-    //Logger log("log.txt");
+    Logger log("log.txt");
     Controller control(3.4, 3.5); // Classe per gestire i dispositivi e i timer
     
     // Lista dei dispositivi usando shared_ptr
