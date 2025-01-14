@@ -1,0 +1,32 @@
+[00.00] Sistema domotico avviato
+[00.00] Aggiunto dispositivo: Impianto fotovoltaico
+[00.00] Aggiunto dispositivo: Lavatrice
+[00.00] Aggiunto dispositivo: Lavastoviglie
+[00.00] Aggiunto dispositivo: Pompa di calore + termostato
+[00.00] Aggiunto dispositivo: Tapparelle elettriche
+[00.00] Aggiunto dispositivo: Scaldabagno
+[00.00] Aggiunto dispositivo: Frigorifero
+[00.00] Aggiunto dispositivo: Forno a microonde
+[00.00] Aggiunto dispositivo: Asciugatrice
+[00.00] Aggiunto dispositivo: Televisore
+Sistema domotico avviato. Inserisci un comando:
+>> set time 13:00
+[13:00] L'orario attuale è 13:00 (alla fine dell'esecuzione)
+>> set Televisore 13:45 16:00
+>> rm Televisore
+[13:00] Rimosso il timer dal dispositivo Televisore
+>> time
+>>      
+>> show
+[13:00] Il sistema, fino a questo momento, ha prodotto: 0.000000 kW e consumato 0.000000 kW.
+[13:00] Il dispositivo 'Asciugatrice' ha consumato -0.000000 kWh
+[13:00] Il dispositivo 'Forno a microonde' ha consumato -0.000000 kWh
+[13:00] Il dispositivo 'Frigorifero' ha consumato -0.000000 kWh
+[13:00] Il dispositivo 'Scaldabagno' ha consumato -0.000000 kWh
+[13:00] Il dispositivo 'Televisore' ha consumato -0.000000 kWh
+[13:00] Il dispositivo 'Tapparelle elettriche' ha consumato -0.000000 kWh
+[13:00] Il dispositivo 'Pompa di calore + termostato' ha consumato -0.000000 kWh
+[13:00] Il dispositivo 'Lavastoviglie' ha consumato -0.000000 kWh
+[13:00] Il dispositivo 'Lavatrice' ha consumato -0.000000 kWh
+[13:00] Il dispositivo 'Impianto fotovoltaico' ha consumato 0.000000 kWh
+>> timers
