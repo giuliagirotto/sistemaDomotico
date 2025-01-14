@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 
+//
 //costruttore del controller
 Controller::Controller(double maxPower, double solarProduction): 
   maxPower(maxPower), 
