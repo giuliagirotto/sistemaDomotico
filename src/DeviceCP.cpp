@@ -21,13 +21,6 @@ void DeviceCP::turnOff() {
 
 void DeviceCP::setTimer(std::string start){
     startTime = start;
-}
-
-void DeviceCP::removeTimer(){
-        startTime = "";
-}
-
-void DeviceCP::checkTimer(std::string currentTime) {
     int hours,minutes;
     std::istringstream stream(startTime);
     stream >> hours >> minutes;
@@ -39,12 +32,20 @@ void DeviceCP::checkTimer(std::string currentTime) {
     std::ostringstream endTime;
     endTime << (hours < 10 ? "0" : "") << hours << "."
           << (minutes < 10 ? "0" : "") << minutes;
+    stopTime = endTime.str();
+}
+
+void DeviceCP::removeTimer(){
+        startTime = "";
+}
+
+void DeviceCP::checkTimer(std::string currentTime) {
     
-    
+    timeon++;
     if (startTime == currentTime) {
         controller.turnOn(this->getName());
     }
-    if (endTime.str() == currentTime) {
+    if (stopTime == currentTime) {
         controller.turnOff(this->getName());
     }
 }
