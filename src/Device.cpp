@@ -13,17 +13,17 @@ bool Device::isOn() const {
     return isOn;
 }
 
-double getInstantPower(){
+double Device::getInstantPower(){
     return power;
 }
-int timeToMin(std::string time){
+int Device::timeToMin(std::string time){
     int hours,minutes;
     std::istringstream stream(time);
     stream >> hours >> minutes;
     int timeToMin = hours * 60 + minutes;
     return  timeToMin;
 }
-void energyConsumedMonitor(std::string start_time, std::string end_time){
+void Device::energyConsumedMonitor(std::string start_time, std::string end_time){
     iniTime = timeToMin(start_time);
     finTime = timeToMin(end_time);
     totalEnergy += (finTime - iniTime);
