@@ -1,6 +1,7 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
+#include "Controller.h"
 #include <string>
 
 class Device {
