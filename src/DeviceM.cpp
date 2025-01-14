@@ -43,7 +43,9 @@ void DeviceM::removeTimer(){
 
 //controlla se e tempo di attivare il timer.
 void DeviceM::checkTimer(std::string currentTime) {
-    timeOn++; // aggiunge i minuti
+    if (isOn) { 
+        timeOn++;  //aggiorna il tempo in minuti in cui il dispositivo e stato acceso, per poi calcolare l'energia.
+    }
     if (startTime == currentTime) {
         controller.turnOn(this->getName());
     }
