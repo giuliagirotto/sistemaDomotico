@@ -50,7 +50,9 @@ void DeviceCP::removeTimer(){
 //controlla se e tempo per attivare un dispositivo
 void DeviceCP::checkTimer(std::string currentTime) {
     
-    timeOn++;
+    if (isOn) { 
+        timeOn++;  
+    }
     if (startTime == currentTime) {
         controller.turnOn(this->getName());
     }
