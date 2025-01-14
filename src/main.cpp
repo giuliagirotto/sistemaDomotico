@@ -86,9 +86,6 @@ void processCommand(const std::string& command, Logger& log, Controller& control
             }
             case 2: {
                 control.removeDeviceTimer(args);
-                log.logEvent("Rimosso il timer dal dispositivo '" + args + "'.");
-                
-                //throw std::runtime_error("Impossibile rimuovere il timer per il dispositivo: " + args);
                 break;
             }
             case 3: {
