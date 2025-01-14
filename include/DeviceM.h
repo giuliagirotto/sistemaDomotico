@@ -11,7 +11,7 @@ public:
     DeviceM(const std::string& name, int id, double power);
     void turnOn() override;
     void turnOff() override;
-    void updateTimer(int currentTime) override;
+    void checkTimer(int currentTime) override;
 };
 
 #endif // DEVICE_M_H
