@@ -17,7 +17,4 @@ double Device::getInstantPower(){
     return power;
 }
 
-void Device::energyConsumedMonitor(int time_on){
-    
 
-}
