@@ -91,7 +91,7 @@ void setTurnOffTime(const std::string& args, Logger& log, Controller& control){
 
     auto it = commandMap.find(mainCommand);
     if (it == commandMap.end()) {
-        logAndPrintError(log, "Comando non riconosciuto: " + command);
+        logEvent("Comando non riconosciuto: " + command);
         return;
     }
 
@@ -143,7 +143,7 @@ void setTurnOffTime(const std::string& args, Logger& log, Controller& control){
                 throw std::logic_error("Comando non gestito correttamente.");
         }
     } catch (const std::exception& e) {
-        //logAndPrintError(log, e.what());
+        logEvent(e.what());
     }
 }
 
