@@ -54,10 +54,10 @@ void processCommand(const std::string& command, Logger& log, Controller& control
     std::string args = (spacePos != std::string::npos) ? command.substr(spacePos + 1) : "";
 
     auto it = commandMap.find(mainCommand);
-    /*if (it == commandMap.end()) {
-        logAndPrintError(log, "Comando non riconosciuto: " + command);
+    if (it == commandMap.end()) {
+        logEvent("Comando non riconosciuto: " + command);
         return;
-    }*/
+    }
 
 
     try {
@@ -108,7 +108,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                 throw std::logic_error("Comando non gestito correttamente.");
         }
     } catch (const std::exception& e) {
-        //logAndPrintError(log, e.what());
+        logEvent(e.what());
     }
 }
 
