@@ -152,7 +152,14 @@ CMakeFiles/sistemaDomotico.dir/src/Controller.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
+ /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
+ /usr/include/c++/11/bits/hashtable_policy.h \
+ /usr/include/c++/11/bits/enable_special_members.h \
+ /usr/include/c++/11/bits/node_handle.h \
+ /usr/include/c++/11/bits/unordered_map.h \
+ /usr/include/c++/11/bits/erase_if.h \
  /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/Device.h \
+ /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/Controller.h \
  /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/Logger.h \
  /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
  /usr/include/c++/11/ios /usr/include/c++/11/bits/ios_base.h \
@@ -183,4 +190,5 @@ CMakeFiles/sistemaDomotico.dir/src/Controller.cpp.o: \
  /usr/include/libintl.h /usr/include/c++/11/bits/locale_facets_nonio.tcc \
  /usr/include/c++/11/bits/locale_conv.h \
  /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/sstream \
- /usr/include/c++/11/bits/sstream.tcc
+ /usr/include/c++/11/bits/sstream.tcc \
+ /home/local/girogiu95354/sistemaDomotico/sistemaDomotico/Include/Logger.h
