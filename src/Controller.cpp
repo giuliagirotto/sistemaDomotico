@@ -24,7 +24,7 @@ int Controller::compareTime(const std::string& time1, const std::string& time2){
   int hours1, minutes1, hours2, minutes2;
   char dot;
 
-  std::istringstram timeStream1(time1);
+  std::istringstream timeStream1(time1);
   timeStream1 >> hours1 >> dot >> minutes1;
 
   std::istringstram timeStream2(time2);
