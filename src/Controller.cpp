@@ -84,7 +84,7 @@ void Controller::turnOn(const std::string& deviceName){
     if(newPower <= (maxPower + solarProduction)) {
       it->second->turnOn();
       currentPower = newPower; 
-      logger.logEvent("[" + currentTime + "] Il dispositivo " + device -> getName() + " è acceso.");
+      log.logEvent("[" + currentTime + "] Il dispositivo " + device -> getName() + " è acceso.");
     } else {
       enforcePowerLimit(); //Mi assiucuro che il limite di potenza non sia superato
     }  
