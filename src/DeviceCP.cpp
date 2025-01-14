@@ -1,9 +1,11 @@
 #include "DeviceCP.h"
+#include <sstream>
 #include <iostream>
 
 
+
 DeviceCP::DeviceCP(const std::string& name, int id, double power, int duration)
-    : Device(name, id, power), duration(duration), controller(controller), startTime(0) {}
+    : Device(name, id, power), duration(duration), controller(controller), startTime("") {}
 
 void DeviceCP::turnOn() {
     if (!isOn) {
@@ -17,13 +19,33 @@ void DeviceCP::turnOff() {
     }
 }
 
-void DeviceCP::updateTimer(int currentTime) {
-    // Only start the device when the current time matches the start time
+void DeviceCP::setTimer(std::string start){
+    startTime = start;
+    int hours,minutes;
+    std::istringstream stream(startTime);
+    stream >> hours >> minutes;
+    int timeToMin = hours * 60 + minutes;
+    int endTimeMin = timeToMin + duration;
+    hours = endTimeMin / 60;
+    minutes = endTimeMin % 60;
+    
+    std::ostringstream endTime;
+    endTime << (hours < 10 ? "0" : "") << hours << "."
+          << (minutes < 10 ? "0" : "") << minutes;
+    stopTime = endTime.str();
+}
+
+void DeviceCP::removeTimer(){
+        startTime = "";
+}
+
+void DeviceCP::checkTimer(std::string currentTime) {
+    
+    timeon++;
     if (startTime == currentTime) {
-        turnOn();
+        controller.turnOn(this->getName());
     }
-    // If the current time reaches the end of the duration, turn off the device
-    if (isOn && currentTime >= startTime + duration) {
-        turnOff();
+    if (stopTime == currentTime) {
+        controller.turnOff(this->getName());
     }
 }
