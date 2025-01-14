@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-
+#include <algorithm>
 
 //costruttore del controller
 Controller::Controller(double maxPower, double solarProduction): 
