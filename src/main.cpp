@@ -76,6 +76,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                     std::string time = args.substr(5);
                     if (isValidTime(time)) {
                         control.setTime(time);
+                    } 
                 } else {
                     size_t firstSpace = args.find(' ');
                     std::string deviceName = args.substr(0, firstSpace);
@@ -90,10 +91,8 @@ void processCommand(const std::string& command, Logger& log, Controller& control
             }
             case 3: {
                 if (args.empty()) {
-                    log.logEvent("Mostrati tutti i consumi.");
                     control.showDevices();
                 } else {
-                    log.logEvent("Mostrato consumo per dispositivo: " + args);
                     control.showDevice(args);
                 }
                 break;
@@ -101,13 +100,10 @@ void processCommand(const std::string& command, Logger& log, Controller& control
             case 4: {
                 if (args == "time") {
                     control.resetTime();
-                    log.logEvent("Orario resettato.");
                 } else if (args == "timers") {
                     control.resetTimers();
-                    log.logEvent("Timers resettati.");
                 } else if (args == "all") {
                     control.resetAll();
-                    log.logEvent("Sistema resettato alle condizioni iniziali.");
                 } else {
                     throw std::invalid_argument("Argomento non valido per il reset: " + args);
                 }
