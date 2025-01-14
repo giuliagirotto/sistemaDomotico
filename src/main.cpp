@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include "Logger.h"
 #include "Controller.h"
+#include "Device.h"
 
 // Funzione per validare un orario nel formato HH:MM
 bool isValidTime(const std::string& time) {
@@ -24,13 +25,13 @@ void logAndPrintError(Logger& log, const std::string& message) {
     std::cout << "Errore: " << message << std::endl;
 }
 
-//funzione per controllo dell'iniziale
-bool startsWith(const std::string& str, const std::string& prefix){
+/*funzione per controllo dell'iniziale
+bool startWith(const std::string& str, const std::string& prefix){
     if(str.size()<prefix.size()){
         return false; //la stringa è più corta del prefisso di controllo
     }
     return str.compare(0,prefix.size(), prefix)==0; //confronta il prefisso
-}
+}*/
 
 // Funzione helper per accensione/spegnimento dispositivo
 void handleDeviceAction(const std::string& deviceName, const std::string& action, Logger& log, Controller& control) {
@@ -67,8 +68,8 @@ void processCommand(const std::string& command, Logger& log, Controller& control
     try {
         switch (it->second) {
             case 1: {
-                // Gestione del comando "set"
-                if (args.startsWith("time ")) {
+                /*Gestione del comando "set"
+                if (args.startWith("time ")) {
                     std::string time = args.substr(5);
                     if (isValidTime(time)) {
                         control.setTime(time);
@@ -81,7 +82,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                     std::string deviceName = args.substr(0, firstSpace);
                     std::string action = args.substr(firstSpace + 1);
                     handleDeviceAction(deviceName, action, log, control);
-                }
+                }*/
                 break;
             }
             case 2: {

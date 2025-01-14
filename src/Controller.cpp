@@ -11,8 +11,8 @@ Controller::Controller(double maxPower, double solarProduction):
   solarProduction(solarProduction), 
   currentPower(0.0), 
   currentTime("00.00") {
-  log = std::make_shared<Logger>("log.txt");
-  log.logEvent("[" currentTime + "] Sistema domotico avviato");
+  logger = std::make_shared<Logger>("log.txt");
+  logger->logEvent("[" +currentTime + "] Sistema domotico avviato");
 }
 
 //distruttore

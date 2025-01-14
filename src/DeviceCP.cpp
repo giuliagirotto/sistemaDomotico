@@ -8,14 +8,14 @@ DeviceCP::DeviceCP(const std::string& name, int id, double power, int duration)
     : Device(name, id, power), duration(duration), controller(controller), startTime("") {}
 
 void DeviceCP::turnOn() {
-    if (!isOn) {
-        isOn = true;
+    if (!var_isOn) {
+        var_isOn = true;
     }
 }
 
 void DeviceCP::turnOff() {
-    if (isOn) {
-        isOn = false;
+    if (var_isOn) {
+        var_isOn = false;
     }
 }
 

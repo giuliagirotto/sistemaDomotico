@@ -1,4 +1,3 @@
-#include "Device.h"
 #include "Controller.h"
 #include <iostream>
 
@@ -10,7 +9,7 @@ const std::string& Device::getName() const {
 }
 
 bool Device::isOn() const {
-    return isOn;
+    return var_isOn;
 }
 
 double Device::getInstantPower(){
