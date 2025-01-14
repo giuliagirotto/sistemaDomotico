@@ -13,10 +13,10 @@
 // Funzione per validare un orario nel formato HH:MM
 bool isValidTime(const std::string& time) {
     try {
-        if (time.length() != 5 || time[2] != ':') return false;
+        if (time.length() != 5 || time[2] != ':') return false; //controllo formato ora HH:MM
         int hours = std::stoi(time.substr(0, 2));
         int minutes = std::stoi(time.substr(3, 2));
-        return hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60;
+        return hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60; //controllo range valori
     } catch (const std::exception&) {
         return false;
     }
@@ -42,7 +42,7 @@ void handleDeviceAction(const std::string& deviceName, const std::string& action
 }
 
 void processCommand(const std::string& command, Logger& log, Controller& control) {
-    static const std::unordered_map<std::string, int> commandMap = {
+    static const std::unordered_map<std::string, int> commandMap = { //associo alle funzioni un numero così da poterle usare nello switch
         {"set", 1},
         {"rm", 2},
         {"show", 3},
@@ -64,27 +64,27 @@ void processCommand(const std::string& command, Logger& log, Controller& control
         switch (it->second) {
             case 1: {
                 //Gestione del comando "set"
-                if (startsWith(args, "time ")) {
+                if (startsWith(args, "time ")) { //controllo la prima sottostringa per vedere se è set
                     std::string time = args.substr(5);
                     if (isValidTime(time)) {
                         control.setTime(time);
                     } 
                 } else {
-                    size_t lastSpace = args.find(' ');
+                    size_t lastSpace = args.find(' '); //controllo per il nome del device
                     if (lastSpace == std::string::npos){
                         throw std::invalid_argument("Nome dispositivo e azione non validi.");
                     }
                     std::string deviceName = args.substr(0, lastSpace);
                     std::string action = args.substr(lastSpace + 1);
-                    handleDeviceAction(deviceName, action, log, control);
+                    handleDeviceAction(deviceName, action, log, control); //manipolo il device
                 }
                 break;
             }
-            case 2: {
+            case 2: { //remove
                 control.removeDeviceTimer(args);
                 break;
             }
-            case 3: {
+            case 3: { //show
                 if (args.empty()) {
                     control.showDevices();
                 } else {
@@ -92,7 +92,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                 }
                 break;
             }
-            case 4: {
+            case 4: {//time
                 if (args == "time") {
                     control.resetTime();
                 } else if (args == "timers") {
@@ -113,7 +113,6 @@ void processCommand(const std::string& command, Logger& log, Controller& control
 }
 
 int main() {
-    //Logger log("log.txt");
     Logger log("log.txt");
     Controller control(3.4, 3.5); // Classe per gestire i dispositivi e i timer
 
