@@ -1,3 +1,4 @@
+// Samuele Caushaj 2123698
 #include "DeviceM.h"
 #include <iostream>
 
@@ -5,23 +6,28 @@
 DeviceM::DeviceM(const std::string& name, int id, double power, Controller& controller)
     : Device(name, id, power, controller), startTime(""), stopTime("") {}
 
+//accende dispositivo
 void DeviceM::turnOn() {
     if (!isOn) {
         isOn = true;
     }
 }
 
+//spegne dispositivo
 void DeviceM::turnOff() {
     if (isOn) {
         isOn = false;
     }
 }
 
+//imposta un timer.
 void DeviceM::setTimer(std::string start,std::string stop){
     startTime = start;
     stopTime = stop;
 }
 
+
+//rimuove il timer
 void DeviceM::removeTimer(){
     if (isOn){
         startTime = "";
@@ -34,8 +40,10 @@ void DeviceM::removeTimer(){
     }
     
 }
+
+//controlla se e tempo di attivare il timer.
 void DeviceM::checkTimer(std::string currentTime) {
-    timeOn++;
+    timeOn++; // aggiunge i minuti
     if (startTime == currentTime) {
         controller.turnOn(this->getName());
     }
