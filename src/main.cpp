@@ -71,7 +71,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                     std::string time = args.substr(5);
                     if (isValidTime(time)) {
                         control.setTime(time);
-                        logger.logEvent("Orario impostato a: " + time);
+                        log.logEvent("Orario impostato a: " + time);
                     } else {
                         throw std::invalid_argument("Orario non valido: " + time);
                     }
@@ -84,17 +84,16 @@ void processCommand(const std::string& command, Logger& log, Controller& control
                 break;
             }
             case 2: {
-                if (control.removeTimer(args)) {
-                    log.logEvent("Rimosso il timer dal dispositivo '" + args + "'.");
-                } else {
-                    throw std::runtime_error("Impossibile rimuovere il timer per il dispositivo: " + args);
-                }
+                control.removeTimer(args);
+                log.logEvent("Rimosso il timer dal dispositivo '" + args + "'.");
+                
+                //throw std::runtime_error("Impossibile rimuovere il timer per il dispositivo: " + args);
                 break;
             }
             case 3: {
                 if (args.empty()) {
                     log.logEvent("Mostrati tutti i consumi.");
-                    control.showAllDevices();
+                    control.showDevices();
                 } else {
                     log.logEvent("Mostrato consumo per dispositivo: " + args);
                     control.showDevice(args);
@@ -125,7 +124,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
 }
 
 int main() {
-    Logger log("domotica.log");
+    Logger log("domotica.txt");
     Controller control(3.4, 3.5); // Classe per gestire i dispositivi e i timer
 
     std::cout << "Sistema domotico avviato. Inserisci un comando:" << std::endl;
