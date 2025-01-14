@@ -5,7 +5,7 @@
 
 class DeviceCP : public Device {
 private:
-    std::string duration;
+    int duration;
     std::string startTime;
     std::string stopTime;
 
