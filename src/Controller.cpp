@@ -166,7 +166,7 @@ void Controller::showDevice(const std::string& deviceName) const{
   double energia = it ->second->getTotalEnergyConsumed();
   std::string tipo = (energia>0) ? "prodotto" : "consumato";
   logger->logEvent("[" + currentTime + "] Il dispositivo '" + it->second->getName() + "' ha " +
-      tipo + std::to_string(energia) + " kWh");
+      tipo +" "+ std::to_string(energia) + " kWh");
 }
 
 //MOSTRO IL TEMPO
