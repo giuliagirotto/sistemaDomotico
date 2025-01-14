@@ -1,3 +1,4 @@
+// Samuele Caushaj 2123698
 #include "DeviceCP.h"
 #include <sstream>
 #include <iostream>
@@ -7,12 +8,14 @@
 DeviceCP::DeviceCP(const std::string& name, int id, double power, int duration,Controller& controller)
     : Device(name, id, power,controller), duration(duration), startTime("") {}
 
+//Accende Dispositivo
 void DeviceCP::turnOn() {
     if (!isOn) {
         isOn = true;
     }
 }
 
+//Spegnimento Dispositivo
 void DeviceCP::turnOff() {
     if (isOn) {
         isOn = false;
