@@ -5,7 +5,7 @@
 extern Logger log; // Logger globally available
 
 DeviceM::DeviceM(const std::string& name, int id, double power)
-    : Device(name, id, power), stopTime(0) {}
+    : Device(name, id, power, controller), stopTime(0) {}
 
 void DeviceM::turnOn() {
     if (!isOn) {
