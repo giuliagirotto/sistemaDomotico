@@ -1,4 +1,5 @@
 #include "Device.h"
+#include "Controller.h"
 #include <iostream>
 
 Device::Device(const std::string& name, int id, double power, Controller& controller)
