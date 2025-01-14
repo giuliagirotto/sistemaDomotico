@@ -51,7 +51,7 @@ void DeviceCP::removeTimer(){
 void DeviceCP::checkTimer(std::string currentTime) {
     
     if (isOn) { 
-        timeOn++;  
+        timeOn++;  //aggiorna il tempo in minuti in cui il dispositivo e stato acceso, per poi calcolare l'energia.
     }
     if (startTime == currentTime) {
         controller.turnOn(this->getName());
