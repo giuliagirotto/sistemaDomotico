@@ -19,6 +19,14 @@ void DeviceCP::turnOff() {
     }
 }
 
+void DeviceCP::setTimer(std::string start){
+    startTime = start;
+}
+
+void DeviceCP::removeTimer(){
+        startTime = "";
+}
+
 void DeviceCP::checkTimer(std::string currentTime) {
     int hours,minutes;
     std::istringstream stream(startTime);
