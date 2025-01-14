@@ -12,7 +12,7 @@ class Logger;
 class Controller {
 private:
     std::vector<std::unique_ptr<Device>> devices;
-    stdm:shared_ptr<Logger> logger;
+    std::shared_ptr<Logger> logger;
     double maxPower; //potenza massima 
     double solarProduction; //produzione solare
     double currentPower; //potenza attuale

@@ -1,11 +1,11 @@
 //GIROTTO GIULIA 2109947
-#ifdef LOGGER_H
+#ifndef LOGGER_H
 #define LOGGER_H
 
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <iomainip>
+#include <iomanip>
 
 class Logger{
     private:

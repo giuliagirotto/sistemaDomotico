@@ -18,31 +18,25 @@ bool isValidTime(const std::string& time) {
 }
 
 // Funzione helper per loggare errori
-void logAndPrintError(Logger& logger, const std::string& message) {
-    logger.logEvent(message);
+void logAndPrintError(Logger& log, const std::string& message) {
+    log.logEvent(message);
     std::cout << "Errore: " << message << std::endl;
 }
 
 // Funzione helper per accensione/spegnimento dispositivo
-void handleDeviceAction(const std::string& deviceName, const std::string& action, Logger& logger, Controller& controller) {
+void handleDeviceAction(const std::string& deviceName, const std::string& action, Logger& log, Controller& control) {
     if (action == "on") {
-        if (controller.turnDeviceOn(deviceName)) {
-            logger.logEvent("Il dispositivo '" + deviceName + "' si è acceso.");
-        } else {
-            throw std::runtime_error("Impossibile accendere il dispositivo: " + deviceName);
-        }
+        control.turnDeviceOn(deviceName);
+        log.logEvent("Il dispositivo '" + deviceName + "' si è acceso.");
     } else if (action == "off") {
-        if (controller.turnDeviceOff(deviceName)) {
-            logger.logEvent("Il dispositivo '" + deviceName + "' si è spento.");
-        } else {
-            throw std::runtime_error("Impossibile spegnere il dispositivo: " + deviceName);
-        }
+        control.turnDeviceOff(deviceName);
+        log.logEvent("Il dispositivo '" + deviceName + "' si è spento.");
     } else {
         throw std::invalid_argument("Azione non valida: " + action);
     }
 }
 
-void processCommand(const std::string& command, Logger& logger, Controller& controller) {
+void processCommand(const std::string& command, Logger& log, Controller& control) {
     static const std::unordered_map<std::string, int> commandMap = {
         {"set", 1},
         {"rm", 2},
@@ -56,10 +50,11 @@ void processCommand(const std::string& command, Logger& logger, Controller& cont
 
     auto it = commandMap.find(mainCommand);
     if (it == commandMap.end()) {
-        logAndPrintError(logger, "Comando non riconosciuto: " + command);
+        logAndPrintError(log, "Comando non riconosciuto: " + command);
         return;
     }
 
+    
     try {
         switch (it->second) {
             case 1: {
@@ -67,7 +62,7 @@ void processCommand(const std::string& command, Logger& logger, Controller& cont
                 if (args.starts_with("time ")) {
                     std::string time = args.substr(5);
                     if (isValidTime(time)) {
-                        controller.setTime(time);
+                        control.setTime(time);
                         logger.logEvent("Orario impostato a: " + time);
                     } else {
                         throw std::invalid_argument("Orario non valido: " + time);
@@ -76,13 +71,13 @@ void processCommand(const std::string& command, Logger& logger, Controller& cont
                     size_t firstSpace = args.find(' ');
                     std::string deviceName = args.substr(0, firstSpace);
                     std::string action = args.substr(firstSpace + 1);
-                    handleDeviceAction(deviceName, action, logger, controller);
+                    handleDeviceAction(deviceName, action, log, control);
                 }
                 break;
             }
             case 2: {
-                if (controller.removeTimer(args)) {
-                    logger.logEvent("Rimosso il timer dal dispositivo '" + args + "'.");
+                if (control.removeTimer(args)) {
+                    log.logEvent("Rimosso il timer dal dispositivo '" + args + "'.");
                 } else {
                     throw std::runtime_error("Impossibile rimuovere il timer per il dispositivo: " + args);
                 }
@@ -90,24 +85,24 @@ void processCommand(const std::string& command, Logger& logger, Controller& cont
             }
             case 3: {
                 if (args.empty()) {
-                    logger.logEvent("Mostrati tutti i consumi.");
-                    controller.showAllDevices();
+                    log.logEvent("Mostrati tutti i consumi.");
+                    control.showAllDevices();
                 } else {
-                    logger.logEvent("Mostrato consumo per dispositivo: " + args);
-                    controller.showDevice(args);
+                    log.logEvent("Mostrato consumo per dispositivo: " + args);
+                    control.showDevice(args);
                 }
                 break;
             }
             case 4: {
                 if (args == "time") {
-                    controller.resetTime();
-                    logger.logEvent("Orario resettato.");
+                    control.resetTime();
+                    log.logEvent("Orario resettato.");
                 } else if (args == "timers") {
-                    controller.resetTimers();
-                    logger.logEvent("Timers resettati.");
+                    control.resetTimers();
+                    log.logEvent("Timers resettati.");
                 } else if (args == "all") {
-                    controller.resetAll();
-                    logger.logEvent("Sistema resettato alle condizioni iniziali.");
+                    control.resetAll();
+                    log.logEvent("Sistema resettato alle condizioni iniziali.");
                 } else {
                     throw std::invalid_argument("Argomento non valido per il reset: " + args);
                 }
@@ -117,13 +112,13 @@ void processCommand(const std::string& command, Logger& logger, Controller& cont
                 throw std::logic_error("Comando non gestito correttamente.");
         }
     } catch (const std::exception& e) {
-        logAndPrintError(logger, e.what());
+        logAndPrintError(log, e.what());
     }
 }
 
 int main() {
-    Logger logger("domotica.log");
-    Controller controller; // Classe per gestire i dispositivi e i timer
+    Logger log("domotica.log");
+    Controller control(3.4, 3.5); // Classe per gestire i dispositivi e i timer
 
     std::cout << "Sistema domotico avviato. Inserisci un comando:" << std::endl;
 
@@ -131,7 +126,7 @@ int main() {
     while (true) {
         std::cout << ">> ";
         std::getline(std::cin, command);
-        processCommand(command, logger, controller);
+        processCommand(command, log, control);
     }
 
     return 0;
