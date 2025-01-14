@@ -41,59 +41,24 @@ void handleDeviceAction(const std::string& deviceName, const std::string& action
     }
 }
 
-//Imposto il nome del dispositivo
-void setDeviceName(const std::string& args, Logger& log, Controller& control){
-    size_t lastSpace = args.find(' ');
-    if(lastSpace != std::string::npos){
-        std::string deviceName = args.substr(0, lastSpace);
-        std::string newDeviceName = args.substr(lastSpace + 1);
-        control.setDeviceName(deviceName, newDeviceName);
-    }else{
-        throw std::invalid_argument("Nome dispositivo non valido ");
-    }
-}
+void processCommand(const std::string& command, Logger& log, Controller& control) {
+    static const std::unordered_map<std::string, int> commandMap = {
+        {"set", 1},
+        {"rm", 2},
+        {"show", 3},
+        {"reset", 4}
+    };
 
-//Imposto l'ora di accensione
-void setTurnOnTime(const std::string& args, Logger& log, Controller& control){
-    size_t lastSpace = args.find(' ');
-    if(lastSpace != std::string::npos){
-        std::string deviceName = args.substr(0, lastSpace);
-        std::string time = args.substr(lastSpace + 1);
-        if(isValidTime(time)){
-            control.setTurnOnTime(deviceName, time);
-        }else{
-            throw std::invalid_argument("Orario non valido");
-        }
-    }else{
-        throw std::invalid_argument("Nome dispositivo non valido");
-    }
-}
-
-//Imposto l'ora di spegnimento
-void setTurnOffTime(const std::string& args, Logger& log, Controller& control){
-    size_t lastSpace = args.find(' ');
-    if(lastSpace != std::string::npos){
-        std::string deviceName = args.substr(0, lastSpace);
-        std::string time = args.substr(lastSpace + 1);
-        if(isValidTime(time)){
-            control.setTurnOffTime(deviceName, time);
-        }else{
-            throw std::invalid_argument("Orario non valido");
-        }
-    }else{
-        throw std::invalid_argument("Nome dispositivo non valido");
-    }
-}
-
- size_t spacePos = command.find(' ');
+    size_t spacePos = command.find(' ');
     std::string mainCommand = command.substr(0, spacePos);
     std::string args = (spacePos != std::string::npos) ? command.substr(spacePos + 1) : "";
 
     auto it = commandMap.find(mainCommand);
-    if (it == commandMap.end()) {
-        logEvent("Comando non riconosciuto: " + command);
+    /*if (it == commandMap.end()) {
+        logAndPrintError(log, "Comando non riconosciuto: " + command);
         return;
-    }
+    }*/
+
 
     try {
         switch (it->second) {
@@ -143,14 +108,15 @@ void setTurnOffTime(const std::string& args, Logger& log, Controller& control){
                 throw std::logic_error("Comando non gestito correttamente.");
         }
     } catch (const std::exception& e) {
-        logEvent(e.what());
+        //logAndPrintError(log, e.what());
     }
 }
 
 int main() {
+    //Logger log("log.txt");
     Logger log("log.txt");
     Controller control(3.4, 3.5); // Classe per gestire i dispositivi e i timer
-    
+
     // Lista dei dispositivi usando shared_ptr
     std::vector<std::shared_ptr<Device>> devices;
     devices.push_back(std::make_shared<DeviceM>("Impianto fotovoltaico", 1, +1.5, control));
