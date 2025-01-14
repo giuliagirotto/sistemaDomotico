@@ -23,11 +23,11 @@ void DeviceM::setTimer(std::string start,std::string stop){
 }
 
 void DeviceM::removeTimer(){
-    if (!device.isOn){
+    if (isOn){
         startTime = "";
         stoptime = "";
     }
-    else if (device.isOn){
+    else if (isOn){
         startTime = "";
         stoptime = "";
         controller.turnOff(this->getName());
@@ -35,12 +35,15 @@ void DeviceM::removeTimer(){
     
 }
 void DeviceM::checkTimer(std::string currentTime) {
-    // Manual devices do not have automatic timers, so no action needed here
-    
+
     if (startTime == currentTime) {
         controller.turnOn(this->getName());
     }
     if (stopTime == currentTime) {
         controller.turnOff(this->getName());
     }
+    if (isOn){
+        energyConsumedMonitor(std::string getTempStartTime(),std::string currentTime);
+    }
+    if (is
 }
