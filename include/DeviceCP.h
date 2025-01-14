@@ -5,8 +5,8 @@
 
 class DeviceCP : public Device {
 private:
-    int duration;
-    int startTime;
+    std::string duration;
+    std::string startTime;
 
 public:
     DeviceCP(const std::string& name, int id, double power, int duration);
