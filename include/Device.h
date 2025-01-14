@@ -31,10 +31,7 @@ public:
 
     double getInstantPower() const;
     double getTotalEnergyConsumed() const;
-    std::string getTempStartTime() const;
-    std::string getTempEndTime() const;
-    void setTempStartTime(const std::string& startingTime);
-    void setTempEndTime(const std::string& endingTime);
+   
     
 };
 
