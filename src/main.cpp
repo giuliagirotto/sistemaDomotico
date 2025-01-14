@@ -26,7 +26,7 @@ void logAndPrintError(Logger& log, const std::string& message) {
 }
 
 //funzione per controllo dell'iniziale
-bool startWith(const std::string& str, const std::string& prefix){
+bool startsWith(const std::string& str, const std::string& prefix){
     if(str.size()<prefix.size()){
         return false; //la stringa è più corta del prefisso di controllo
     }
@@ -69,7 +69,7 @@ void processCommand(const std::string& command, Logger& log, Controller& control
         switch (it->second) {
             case 1: {
                 //Gestione del comando "set"
-                if (args.startWith("time ")) {
+                if (startsWith(args, "time ")) {
                     std::string time = args.substr(5);
                     if (isValidTime(time)) {
                         control.setTime(time);
