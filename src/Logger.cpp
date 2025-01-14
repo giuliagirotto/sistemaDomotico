@@ -34,7 +34,7 @@ void Logger::logEvent(const std::string& event){
 }
 
 //metodo per loggare un evento con valore
-void Logger::logEvent(const std::string& evenet, double value, const std::string& unit){
+void Logger::logEvent(const std::string& event, double value, const std::string& unit){
     std::ostringstream oss;
     oss << event << ": " << value << " " << unit;
     logEvent(oss.str()); // Richiama il metodo principale
