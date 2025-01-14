@@ -10,8 +10,6 @@ protected:
     int id;
     double power;
     double totalEnergy;
-    std::string tempStartTime;
-    std::string tempEndTime;
     int timeOn;
     bool isOn;
     Controller& controller;
