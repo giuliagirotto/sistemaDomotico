@@ -6,8 +6,6 @@
 #include "Logger.h"
 #include "Controller.h"
 #include "Device.h"
-#include "DeviceM.h"
-#include "DeviceCP.h"
 
 // Funzione per validare un orario nel formato HH:MM
 bool isValidTime(const std::string& time) {
