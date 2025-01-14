@@ -25,9 +25,7 @@ std::string Logger::getCurrentTime() const{
 }
 
 //metodo per loggare un evento generico
-void Logger::logEvent(const std::string& event){
-    //std::string logMessage = event; // [HH:MM] Evento
-
+void Logger::logEvent(const std::string& event){ //argomento passato come [HH:MM] Evento
     if(logFile)logFile<<event<<"\n";  //scrive nel nel file
     std::cout<<event<<"\n";    //stampa a terminale
 }
