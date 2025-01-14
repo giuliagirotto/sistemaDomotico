@@ -12,3 +12,7 @@ const std::string& Device::getName() const {
 bool Device::isOn() const {
     return isOn;
 }
+
+double getInstantPower(){
+    return power;
+}
